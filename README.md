@@ -13,4 +13,4 @@ For any question, please contact the main contributor:
 
 # Acknowledgment
 Thanks to the following people for their valuable feedback.
-- Sofiane Abbar
+- Sofiane Abbar, QCRI
