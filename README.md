@@ -10,3 +10,7 @@ Please note that Qora does change the layout/structure of its website every now 
 # Contact
 For any question, please contact the main contributor:
 * Youcef Benkhedda: y_benkhedda@esi.dz
+
+# Acknowledgment
+Thanks to the following people for their valuable feedback.
+- Sofiane Abbar
