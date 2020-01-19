@@ -157,11 +157,9 @@ def crawlQuestionData(file):
                print('Error on line {}'.format(sys.exc_info()[-1].tb_lineno), type(e1).__name__, e1)
                print(str(e1))
         
-        # change ip address after each 1000 request
-        if (k % 1000==0):
-           browser.quit()
-           browser= connectchrome()
+    
         print ("*************************************************************************")
+        # In our usecase 74256 is the loop limit value
         if k==74256 :
            loop= False
     print("--- %s seconds ---" % (time.time() - start_time))        
