@@ -170,7 +170,7 @@ def crawlQuestionData(file):
 def main():
     
     # We merged all Questions urls crawled by 1-Questions_URLs_crawler.py into one file (quora_urls.txt)
-    crawlQuestionData("quora_urls.txt")
+    crawlQuestionData((os.path.join(sys.path[0]+"/quora_urls.txt")))
     return 0
 
 if __name__ == "__main__": main()       
