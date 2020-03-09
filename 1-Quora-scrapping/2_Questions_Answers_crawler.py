@@ -41,14 +41,16 @@ def scrolldown(browser):
         src = src_updated
         src_updated = browser.page_source      
        
-
+# we crawl each question url retrieved by 1-Questions_URLs_crawler.py
 def crawlQuestionData(file):
     start_time = time.time()
     #if (DEBUG): #print ("In crawlQuestionData...")
+    
     # Open question url file
     file_question_urls = open(file, mode = 'r')
-    #file_answers = open(os.path.join(sys.path[0]+"zzanswers.txt", mode = 'ab'))
-    file_answers = open("/home/youcef/Documents/quora/quora-answers-profiles-scraper/zzanswers,txt", mode = 'ab')
+    
+    # we save all retrieved answers into answers.txt file
+    file_answers = open("answers,txt", mode = 'ab')
 
     #file_users = open(os.path.join(sys.path[0]+"users.txt", mode = 'a'))
     current_lines = file_question_urls.readlines()
