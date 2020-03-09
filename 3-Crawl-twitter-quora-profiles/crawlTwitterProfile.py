@@ -5,14 +5,14 @@ import os
 import time
 
  
- 
+# if this module is not working, use Twint module : https://github.com/twintproject/twint
  
 #collect twitter user profile (tweets) and store them into json file
  
-consumer_key = 'nt6NDq44qL2BFSeq8iajMHA6r'
-consumer_secret = 'XpwIx4AnhgOWVIYsHPlXZNPHmXr7zSGPGXMyVqyEdMzNLMUqWw'
-access_key = '302685662-PMYXXbq4fSFLiNjpBgireOo8xYx8VYNvtyQhY3e9'
-access_secret = 'TuSXLzXd9VPRyILFxo9d6QDwPHd4yjFAVEAxfc4kBtRql'
+consumer_key = 'put your keys here'
+consumer_secret = 'put your keys here'
+access_key = 'put your keys here'
+access_secret = 'put your keys here'
 
 
 def get_all_tweets(screen_name):
