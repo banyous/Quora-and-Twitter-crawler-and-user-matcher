@@ -2,7 +2,6 @@
 This repository is a collection of code source I wrote for my work on user matching in social networks. It consists of three folders for Quora, Twitter, and account matching.
 
 
-This is working as per 2019-03-15. 
 Please note that Quora and Twitter do change the layout/structure of its website every now and then. So please update the code in case it doesn't work as expected.
 
 ## 1-Quora-scrapping
