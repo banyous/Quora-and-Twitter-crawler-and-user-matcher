@@ -32,7 +32,7 @@ def connectchrome():
 start_time = datetime.datetime.now()
 
 # read topics form a file
-file_question_topics = open("terms_file.txt", mode='r', encoding='utf-8')
+file_question_topics = open((os.path.join(sys.path[0]+'/terms_file.txt')), mode='r', encoding='utf-8')
 cc=1708
 driver=connectchrome()
 lines=file_question_topics.readlines()
