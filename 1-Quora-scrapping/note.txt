@@ -1,1 +1,2 @@
-those files are for scraping quora questions 
+terms_file.txt is used as a topic keywords files to retrieve topics questions urls from Quora using 1-Questions_URLs_crawler.py
+After questions urls are crawled, we use 2_Questions_Answers_crawler.py to crawl each question answers.
