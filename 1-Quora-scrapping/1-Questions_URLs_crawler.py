@@ -8,7 +8,7 @@ import csv
 import sys
 
 
-# this code takes as input a file containing topics keywords(line separated)
+# this code takes as input a file containing topics keywords file : terms_file.txt
 # and gives as output for each keyword topic a file containing quora questions urls related to the topic 
 
 def connectchrome():
@@ -32,7 +32,7 @@ def connectchrome():
 start_time = datetime.datetime.now()
 
 # read topics form a file
-file_question_topics = open("/home/youcef/Documents/googe_ngram_terms.txt", mode='r', encoding='utf-8')
+file_question_topics = open("terms_file.txt", mode='r', encoding='utf-8')
 cc=1708
 driver=connectchrome()
 lines=file_question_topics.readlines()
@@ -58,8 +58,7 @@ while parsing_loop:
                 print('exception e0')
                 print('Error on line {}'.format(sys.exc_info()[-1].tb_lineno), type(e0).__name__, e0)
                 continue     
-           # driver.get("https://www.quora.com/topic/Indian-School-of-Business/all_questions")
-           # driver.get("https://www.quora.com/topic/Royal-Enfield-Thunderbird/all_questions")
+
                      
            # define pause time for browser
            SCROLL_PAUSE_TIME = 2
@@ -146,8 +145,8 @@ while parsing_loop:
                 
            
            # write content of set to a file called question_urls.txt
-           questions_directory = '/home/youcef/Documents/quora/quora-scraper-master/questions/google_ngram'
-           os.makedirs('/home/youcef/Documents/quora/quora-scraper-master/questions/google_ngram', exist_ok=True)
+           questions_directory = 'topics/'
+           os.makedirs('topics/', exist_ok=True)
            file_name = questions_directory + '/' + topic.strip('\n') + '_question_urls.txt'
            file_question_urls = open(file_name, mode='w', encoding='utf-8')
            writer = csv.writer(file_question_urls)
