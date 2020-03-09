@@ -246,6 +246,8 @@ def get_and_check_similarity_twitter_profile(fileu):
 def main():
     start_time = time.time()
     # Qusers_ids.txt is the output of the 1-Quora-scrapping module
+    # we need to select the user_id  form the answers text file (second tab separated column)
+    # and put it in a file named /Qusers_ids.txt
     get_and_check_similarity_twitter_profile(os.path.join(sys.path[0]+'/Qusers_ids.txt'))
     print("--- %s seconds ---" % (time.time() - start_time))
 
