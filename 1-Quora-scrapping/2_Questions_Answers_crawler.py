@@ -168,8 +168,9 @@ def crawlQuestionData(file):
     browser.quit()  
  
 def main():
-
-    crawlQuestionData("/home/youcef/Documents/quora_top_urls.txt")
+    
+    # We merged all Questions urls crawled by 1-Questions_URLs_crawler.py into one file (quora_urls.txt)
+    crawlQuestionData("quora_urls.txt")
     return 0
 
 if __name__ == "__main__": main()       
