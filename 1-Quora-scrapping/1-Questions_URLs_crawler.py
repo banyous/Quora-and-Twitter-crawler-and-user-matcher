@@ -155,13 +155,15 @@ while parsing_loop:
                       #print(link_url)
                       writer.writerows([[link_url]])
            
-           
+           #sleeping each 300 requests
            if cc % 300== 0:
                print('quitting chrome')
                driver.quit()
                time.sleep(6)
                driver=connectchrome()
-           if cc==3000:
+           #loop_limit can be adjusted based on the number of requests we want to send 
+           loop_limit=3000
+           if cc==loop_limit:
             parsing_loop=False
            
 # finish time
