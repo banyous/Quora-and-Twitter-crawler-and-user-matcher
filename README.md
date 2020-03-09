@@ -1,8 +1,15 @@
-# UMDL
-This repository is a collection of code source I wrote for my work on user matching in social networks. It consists of three folders for Quora, Twitter, and account matching.
 
+This repository helps in collecting true matching accounts between Quora and Twitter networks.
 
 Please note that Quora and Twitter do change the layout/structure of its website every now and then. So please update the code in case it doesn't work as expected.
+
+You can find a data-set of 32k true matching produced by this code in the following link :
+https://zenodo.org/record/3609984#.XmYQ9XUzZuQ
+
+
+_________________________________________________________________________________________
+
+Our matching process is composed of three steps (modules):
 
 ## 1-Quora-scrapping
 The goal of this module is to retieve Quora users IDs. We complete this by doing two steps:
