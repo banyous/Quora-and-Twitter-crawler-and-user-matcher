@@ -1,3 +1,3 @@
 terms_file.txt is used as a topic keywords file to retrieve topics questions urls from Quora using 1-Questions_URLs_crawler.py
-After questions urls are crawled, we use 2_Questions_Answers_crawler.py to crawl each question answers.
-Our final goal is to have the answers authors username. Those Quora username will be used in the 2-Matching-Quora-twitter-users to retrieve their accounts in Twitter.
+After the questions urls are crawled. We use 2_Questions_Answers_crawler.py to crawl each question answers.
+Our final goal is to have the answers authors username. Those Quora username will be used in the next module : 2-Matching-Quora-twitter-users look for their correponding Twitter accounts.
