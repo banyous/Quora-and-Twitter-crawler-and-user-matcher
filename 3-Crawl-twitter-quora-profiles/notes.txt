@@ -1,0 +1,18 @@
+Here we crawl Quora profiles amd Twitter profiles
+
+################################################################################
+crawlQuoraProfile.py
+
+This code takes a list of Quora Users IDs (from /True_matching.txt (first column))
+For each UserID it will scrap the profile informations(Stats and Answers text)
+The profile data is saved in the /Qusers folder under UserID.txt filename
+
+################################################################################
+crawlTwitterProfile.py
+
+This code takes a list of Twitter Users IDs (from /True_matching.txt (second column))
+For each Twitter UserID it will scrap the profile informations(Stats and tweets text)
+The profile data is saved in the /Tusers folder under UserID.txt filename
+
+if this module is not working, use Twint module : https://github.com/twintproject/twint
+################################################################################
