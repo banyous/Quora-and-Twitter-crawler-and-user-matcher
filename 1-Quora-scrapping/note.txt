@@ -1,4 +1,4 @@
-This framework is based on two scripts that needs to be used in the following order :
+This module is based on two scripts that needs to be used in the following order :
 
 ##########################################################################
 1- QuestionURLscrawler.py
