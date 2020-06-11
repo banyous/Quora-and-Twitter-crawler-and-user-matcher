@@ -1,3 +1,18 @@
-terms_file.txt is used as a topic keywords file to retrieve topics questions urls from Quora using 1-Questions_URLs_crawler.py
-After the questions urls are crawled. We use 2_Questions_Answers_crawler.py to crawl each question answers.
+This framework is based on two scripts that needs to be used in the following order :
+
+##########################################################################
+1- QuestionURLscrawler.py
+This script takes as input a list of topics contained in the topics_file.txt (topics are line separated)
+Than checks if each topic exists in Quora website
+If yes, it will collect all questions urls and put them in /topics directory under topic_name.txt filename
+##########################################################################
+2-Questions_Answers_crawler.py  
+This script takes as input a list of Quora question URLs contained in the quora_urls.txt (URLs are line separated)
+Than collects  the answers to each question
+Each answer is saved in a separate line that contains the following informations:
+Quest-ID | Date | Author(answerer)-ID | Quest-tags | Answer Text
+The answers are saved in the answers.txt file
+##########################################################################
+
 Our final goal is to have the answers authors username. Those Quora username will be used in the next module : 2-Matching-Quora-twitter-users look for their correponding Twitter accounts.
+

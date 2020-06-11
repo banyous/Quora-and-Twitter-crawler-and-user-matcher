@@ -1,2 +1,0 @@
-This module takes a list of Quora usernameIDs and apply a username matching approache coupled 
-with image_matching/face_recognition  in order to look for their correponding Twitter accounts.

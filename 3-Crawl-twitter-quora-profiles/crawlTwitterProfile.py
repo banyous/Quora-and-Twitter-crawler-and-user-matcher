@@ -4,10 +4,14 @@ import sys
 import os
 import time
 
- 
+################################################################################
+#This code takes a list of Twitter Users IDs (from /True_matching.txt (second column))
+#For each Twitter UserID it will scrap the profile informations(Stats and tweets text)
+#The profile data is saved in the /Tusers folder under UserID.txt filename
+
 # if this module is not working, use Twint module : https://github.com/twintproject/twint
- 
-#collect twitter user profile (tweets) and store them into json file
+################################################################################
+
  
 consumer_key = 'put your keys here'
 consumer_secret = 'put your keys here'

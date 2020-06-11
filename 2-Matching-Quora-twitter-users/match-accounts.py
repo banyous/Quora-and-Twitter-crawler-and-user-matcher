@@ -18,7 +18,7 @@ from PIL import Image
 import imagehash
 from pprint import pprint
 from shutil import copyfile
-from find_last_matching_account import find_last_matching
+#from find_last_matching_account import find_last_matching
 from termcolor import colored
 import unidecode
 import face_recognition
@@ -26,7 +26,14 @@ from collections import Counter, OrderedDict
 import subprocess
 DEBUG = 1
 
-
+################################################################################################################
+#This code matches Quora user accounts to their correspondant accounts in Twitter
+# It takes a Quora user-IDs list from Qusers_ids.txt file
+# Than look for correspending Twitter account for each Quora user-ID
+# By first retrieving the same Quora-ID in Twitter (with some string modifications)
+# and than matching the profile photos of the Quora and Twitter accounts (by face recongnition and image similarity)
+# True matching accounts (QuoraID TwitterID) are then saved to true_matching.txt
+################################################################################################################
 # get line index of last found user matching
 def find_last_matching():
     f_Health_users = open(os.path.join(sys.path[0],'Health-users.txt'), mode='r')
@@ -48,34 +55,18 @@ def find_last_matching():
     return index_last
 
 #check if twitter profile does exists     
-def valid_twitter_url(rRequests):
+def valid_twitter_url(browser):
         exists=False
         try:
-           soup = BeautifulSoup(rRequests.content,"lxml")
-           PageDoesntExist=  soup.find("div", {"class": "errorpage-body-content"}) #  that page doesn’t exist!
-           AccountSuspended=  soup.find("div", {"class": "flex-module error-page clearfix"})#This account has been suspended
-           ProtectedAccount= soup.find("div", {"class": "ProtectedTimeline"}) #This account's Tweets are protected 
-           
-           if str(PageDoesntExist)== 'None' and str(AccountSuspended)=='None' and str(ProtectedAccount)=='None': 
-               print('user id does exists in twitter')
-               exists=True
-               pass
-           elif str(PageDoesntExist)!= 'None':
-             print('twitter user does not exist')
-           elif  str(AccountSuspended)!='None':
-                print('twitter account is suspended')
-           elif str(ProtectedAccount)!='None':
-                 print('twitter  account Tweets are protected')
+            if not browser.page_source.__contains__("Something went wrong."):
+                exists=True
         except Exception as e0:
-            print('there is exception')
+            print('cant access twitter account')
             print(e0)
             print('Error on line {}'.format(sys.exc_info()[-1].tb_lineno), type(e0).__name__, e0)
             pass
-    
-        #time.sleep(1)
         return exists
 
-    
 def check_similarity(user_id,checking):  #return boolean
 #when checking equal 'quora': check wether user_id quora profile photo is default 
 #when checking is 'twitter': check wether user_id  twitter profile photo is default 
@@ -89,12 +80,13 @@ def check_similarity(user_id,checking):  #return boolean
     default_hash_quora2=imagehash.average_hash(Image.open(os.path.join(sys.path[0]+'/default_quora_photo_2')))
     default_hash_quora3=imagehash.average_hash(Image.open(os.path.join(sys.path[0]+'/default_quora_photo_3')))
     default_hash_quora4=imagehash.average_hash(Image.open(os.path.join(sys.path[0]+'/default_quora_photo_4')))
+    default_hash_quora5=imagehash.average_hash(Image.open(os.path.join(sys.path[0]+'/default_quora_photo_5')))
     default_hash_twitter=imagehash.average_hash(Image.open(os.path.join(sys.path[0]+'/default_twitter_photo')))
     similarity=False
     
     if checking=='quora': # check if quora profile photo is default
         hash_quora = imagehash.average_hash(Image.open(path_photos_quora+user_id))
-        if default_hash_quora -hash_quora <3  or default_hash_quora2 - hash_quora<3 or  default_hash_quora3 - hash_quora<3  or  default_hash_quora4 - hash_quora<3:   
+        if default_hash_quora -hash_quora <3  or default_hash_quora2 - hash_quora<3 or  default_hash_quora3 - hash_quora<3  or  default_hash_quora4 - hash_quora<3 or  default_hash_quora5 - hash_quora<3:
             similarity=True
     elif checking=='twitter': # check if twitter profile photo is default
         hash_twitter = imagehash.average_hash(Image.open(path_photos_twitter+user_id ))
@@ -151,68 +143,72 @@ def get_and_check_similarity_twitter_profile(fileu):
     file_users= open(fileu,'r') # file containing quora users ids
     current_lines = file_users.readlines()
     print(len(current_lines))
-    dual_accounts_file=open(os.path.join(sys.path[0]+'/dual_accounts.txt'),'a')
+    True_matching_accounts_file=open(os.path.join(sys.path[0] + '/true_matching.txt'), 'a')
     quora_images_directory = (os.path.join(sys.path[0]+'/quora-images/'))
     twitter_images_directory =(os.path.join(sys.path[0]+'/twitter-images/'))
     os.makedirs(quora_images_directory, exist_ok=True)
     os.makedirs(twitter_images_directory, exist_ok=True)
     lines= file_users.readlines()
     #start_line=find_last_matching() 
-    start_line=29133
+    start_line=0
     if start_line!=0:
         start_line+=1
-    #start_line=9394
-    # we are starting form k=3663
     Nonstop=True
+    browser = connectchrome()
     while Nonstop:
         line=current_lines[start_line]
         start_line+=1
-        #if start_line==10001:
-        #    break
-        #columns= line.split('\t')
-        quora_user_id=line.strip('\n')
+        quora_user_id=line.strip()
         print('-------------------------')
         print ('processing user : ', quora_user_id,'    line : ', start_line-1)
-        
+        # i is number of User-id matching schemes between Qu and Tw
         i=0
         while i<2: # we will try 2 twitter ids: first replacing quora_id '-' with '' , second replacing '-' with '_'
             i+=1
             try: # check first if quora user profile url is still valid  
-                url1= 'https://www.quora.com/'+quora_user_id # quora profile url
-                r1 = requests.get(url1)
-                soup1 = BeautifulSoup(r1.content,"lxml")
-                quora_photo=  soup1.find("img", {"class": "profile_photo_img"})['src'] # 
+                url1= 'https://www.quora.com/profile/'+quora_user_id # quora profile url
+                #r1 = requests.get(url1)
+                browser.get(url1)
+                time.sleep(2)
+                soup1 = BeautifulSoup(browser.page_source,"html.parser")
+                quora_photo=  soup1.find("img", {"class": "q-image qu-display--block"})['src'] #
+                print('quora_photo   :',quora_photo)
                 urllib.request.urlretrieve(quora_photo, quora_images_directory+quora_user_id)
                 if not check_similarity(quora_user_id, 'quora') : # if quora user profile photo is not default
-                    # check if twitter user profile exists 
+                    # check if twitter user profile exists
+                    print('check if twitter user profile exists')
                     twitter_user_id= unidecode.unidecode(quora_user_id)
                     remove_digits = str.maketrans('', '', digits)
                     twitter_user_id = twitter_user_id.translate(remove_digits)    
-                    if i==1:                        
+                    if i==1: #first username matching scheme (ex : Albert-Enstein-195 ---> AlbertEnstein )
                         if len(twitter_user_id.split('-')) <3 and twitter_user_id.strip('\n')[-1]=='-' :
                         # if user is like 'kevin' or 'kevin-3' than try to find in twitter only one time
                              i=2 # go to next user
                         
                         twitter_user_id= twitter_user_id.replace('-','')  
-                    else:
+                    else: #second username matching scheme (ex : Albert-Enstein-195 ---> Albert_Enstein
                         twitter_user_id=twitter_user_id.replace('-','_')
                         if twitter_user_id[-1:]=='_': twitter_user_id=twitter_user_id[:-1] 
                     print('looking  in twitter for  :', twitter_user_id)
-                    url2=  "https://www.twitter.com/"+twitter_user_id #twitter profile url
-                    r2 = requests.get(url2) 
-                    if valid_twitter_url(r2): # if twitter page exists (is not private, nor suspended, nor deleted) 
-                                              # then we will proceed further to check twitter photo similarity with quora photo
-                        soup2 = BeautifulSoup(r2.content,"lxml")
-                        twitter_photo=  soup2.find("img", {"class": "ProfileAvatar-image"})['src']
+                    url2=  "https://www.twitter.com/"+twitter_user_id+'/photo' #twitter profile url
+                    #r2 = requests.get(url2)
+                    print('twitter url : ',url2)
+                    browser.get(url2)
+                    time.sleep(2)
+                    # if twitter page exists (is not private, nor suspended, nor deleted)
+                    # then we will proceed further to check twitter photo similarity with quora photo
+                    if valid_twitter_url(browser):
+                        print('twitter account exists')
+                        soup2=BeautifulSoup(browser.page_source,"lxml")
+                        print('valid twitter account')
+                        twitter_photo=  soup2.find("img")['src']
                         urllib.request.urlretrieve(twitter_photo, twitter_images_directory+ twitter_user_id)
                         if not check_similarity(twitter_user_id, 'twitter') : # if twitter profile photo is not default
                             if check_similarity(quora_user_id,twitter_user_id): # if profile photos are identical or have similair faces
                                 ### use function to collect quora profile from soup1
                                 ### use function to collect twitter profile from soup2
-                                nb_tweets=  soup2.find("span", {"class": "ProfileNav-value"})
-                                nb_tweets=convertnumber(nb_tweets.text)
-                                dual_accounts_file.write(quora_user_id+'\t'+ twitter_user_id+'\t'+str(nb_tweets)+'\n') # save username
-                                i=2   # go to next user
+                                True_matching_accounts_file.write(quora_user_id + '\t' + twitter_user_id + '\n') # save username
+                                i=2   # go to next matching scheme
                             else:
                                 try_delete_file(quora_images_directory+quora_user_id)
                                 try_delete_file(twitter_images_directory+twitter_user_id)
@@ -239,7 +235,7 @@ def get_and_check_similarity_twitter_profile(fileu):
                 i=2  # go to next user     
         if start_line==30000:
             Nonstop=False
-    dual_accounts_file.close() 
+    True_matching_accounts_file.close()
     file_users.close()
 
                    
