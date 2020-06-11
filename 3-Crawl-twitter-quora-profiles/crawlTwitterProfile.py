@@ -137,7 +137,6 @@ if __name__ == '__main__':
     
         # pass in the username of the account you want to download
         #alltweets=get_all_tweets(sys.argv[1])
-        #path= "/home/youcef/Documents/Test2/"+str(sys.argv[1][1:])+"_timeline.json"
         #store_tweets(alltweets,path)
         ids= open ((os.path.join(sys.path[0]+"/Twitter_Fin_accounts2.txt")),'r')
         dir_path=path= os.path.join(sys.path[0]+"/Twitter_Users_timeline2/")
