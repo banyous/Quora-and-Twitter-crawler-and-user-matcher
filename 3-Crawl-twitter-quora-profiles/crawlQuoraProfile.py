@@ -75,7 +75,7 @@ def scrolldown(browser, repeat):
             sleep=2
 
 # Main crawling function
-# Gather user data and save into csv file
+# Gather user data and save into txt tab separated file
 # (If you have proxies, you can add the two arguments : proxies and proxy_index
 # and uncomment all proxy lines in crawlUser() and Main())
 
