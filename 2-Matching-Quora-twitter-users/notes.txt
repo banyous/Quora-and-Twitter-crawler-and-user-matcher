@@ -1,8 +1,9 @@
 ################################################################################################################
-This framwork used matching-accounts.py code to matches Quora user accounts to their correspondant accounts in Twitter
-It takes a Quora user-IDs list from Qusers_ids.txt file
-Than look for correspending Twitter account for each Quora user-ID
-By first retrieving the same Quora-ID in Twitter (with some string modifications)
-and than matching the profile photos of the Quora and Twitter accounts (by face recongnition and image similarity)
-True matching accounts (QuoraID TwitterID) are then saved to true_matching.txt
+This module (Matching-Quora-twitter-users) matches Quora user accounts to their correspondant accounts in Twitter.
+It takes as an imput a list of Quora user-IDs (Qusers_ids.txt file)
+Than looks for potential matching accounts in Twitter
+The look-up is done by :
+1) Retrieving Similar Twitter-IDs to the Quora-ID (ex : QID : Kim-Sun-100 ---> Potential TwitterIDs : kimSun, kim_sun )
+2) If potential TwitterIDs exists, It will calculate an image/face similarity score between the Quora and Twitter profile photos. In order to detect if the two profile photos are the same or belong to the same Human face. If yes than the pair is considered as true matching pair.
+True matching account pairs (QuoraID TwitterID) are  saved to true_matching.txt
 ################################################################################################################
