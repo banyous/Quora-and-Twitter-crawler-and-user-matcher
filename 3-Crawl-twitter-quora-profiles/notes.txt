@@ -1,6 +1,5 @@
-This is the last module of our User-matching Framwork. Here we crawl Quora amd Twitter profiles of the true matching accounts.
-We use two crawlers:
-
+This is the last module of our User-matching Framwork. Here we crawl Quora amd Twitter profile of each the true matching pair.
+We two crawlers as follows:
 ################################################################################
 1- Quora accounts crawler : (crawlQuoraProfile.py)
 
