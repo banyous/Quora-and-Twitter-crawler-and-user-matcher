@@ -23,7 +23,7 @@ Based on the Quora users IDs extracted from the previous module, we perform an i
 All the true matching Qu/Tw pairs verified from the  2-Matching-Quora-twitter-users will have their Twitter and Quora accounts crawled in this module.
 
 Please note each module can be used separetly.
-A more detailed description of each module can be found in the notes.txt files within the correspondant folders.
+A more detailed description of each module can be found in the notes.txt files within the correspondant folder.
 *************************************************************************************************************
 # Contact
 For any question, please contact the main contributor:
