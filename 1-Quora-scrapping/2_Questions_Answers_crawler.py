@@ -11,14 +11,13 @@ from datetime import datetime, timedelta
 import dateparser
 from connectChrome import connectchrome
 
-
 ##############################################################################################
-# This script takes as input a list of Quora question URLs contained in the quora_urls.txt (URLs are line separated)
-# Than collects  the answers to each question
-# Each answer is saved in a separate line that contains the following informations:
-#  Quest-ID | Date | Author(answerer)-ID | Quest-tags | Answer Text
+# This script takes as input a list of Quora question URLs from quora_urls.txt (URLs scrapped by 1-Questions_URL_crawler)
+# Than collects  the answers of each Quora question 
+# Answer's data consist of :  Quest-ID | AnswerDate | AnswerAuthor-ID | Quest-tags | Answer-Text
 # The answers are saved in the answers.txt file
 ##############################################################################################
+
 
 def convertnumber(number):
     if 'k' in number:
