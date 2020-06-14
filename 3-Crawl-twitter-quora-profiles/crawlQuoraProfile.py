@@ -95,7 +95,7 @@ def crawlUser(QT_IDs_file):#,proxies,proxy_index):
         os.makedirs(dir_path)
     else:
         try:
-            current_index= len([name for name in os.listdir(dir_path) if os.path.isfile(dir_path+name)])-1
+            current_index= len([name for name in os.listdir(dir_path) if os.path.isfile(dir_path+name)])-2
         except:
             pass
     # Loop over the QuoraIDs to scrap their profile content
