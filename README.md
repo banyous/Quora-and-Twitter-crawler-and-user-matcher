@@ -25,10 +25,10 @@ All the true matching Qu/Tw pairs verified from the  2-Matching-Quora-twitter-us
 Please note that each module can be used separetly.
 A more detailed description of each module can be found in the notes.txt file within each correspondant folder.
 *************************************************************************************************************
-# Contact
+<!---# Contact
 For any question, please contact the main contributor:
 * Youcef Benkhedda: y_benkhedda@esi.dz
 
-<!---# Acknowledgment
+# Acknowledgment
 Thanks to the following people for their valuable feedback.
 - Sofiane Abbar, QCRI -->
