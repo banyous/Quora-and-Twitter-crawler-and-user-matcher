@@ -29,6 +29,6 @@ A more detailed description of each module can be found in the notes.txt file wi
 For any question, please contact the main contributor:
 * Youcef Benkhedda: y_benkhedda@esi.dz
 
-# Acknowledgment
+<!---# Acknowledgment
 Thanks to the following people for their valuable feedback.
-- Sofiane Abbar, QCRI
+- Sofiane Abbar, QCRI -->
