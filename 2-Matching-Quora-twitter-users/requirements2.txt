@@ -10,7 +10,7 @@ face-recognition-models==0.3.0
 idna==2.9
 ImageHash==4.1.0
 lxml==4.5.1
-numpy==1.18.5
+numpy==1.22.0
 Pillow==7.1.2
 PyWavelets==1.1.1
 requests==2.23.0
